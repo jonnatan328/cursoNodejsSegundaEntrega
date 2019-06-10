@@ -1,0 +1,53 @@
+{{>header}}
+    <div class="text-center">
+        <h2>Formulario para inscribirse en un curso</h2>
+        <p>Utilice este formulario para inscribirse en un curso</p>
+    </div>
+    <form action="/inscribirAspirante" method="POST" class="form-horizontal">
+        <fieldset>
+
+                <div class="form-group">
+                    <!-- ASPIRANTE ID FIELD -->
+                    <label for="aspiranteId" class="control-label col-sm-2">Documento de identidad:</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="aspiranteId" id="cursoId" class="form-control" required placeholder="Ej. 1234343">
+                    </div>
+
+                    <!-- CORREO FIELD -->
+                    <label for="correoElectronico" class="control-label col-sm-2">Correo Electrónico:</label>
+                    <div class="col-sm-4" >
+                        <input type="email" name="correoElectronico" id="correoElectronico" class="form-control" required  placeholder="Ej. pablo123@gmail.com">
+                    </div>
+                </div>
+
+            <div class="form-group" >
+                <!-- NAME FIELD -->
+                <label for="name" class="control-label col-sm-2">Nombre:</label>
+                <div class="col-sm-4" >
+                    <input type="text" name="name" id="name" class="form-control" required  placeholder="Ej. Pablo Perez">
+                </div>
+
+                <!-- TELÉFONO FIELD - OPTIONAL -->
+                <label for="telefono" class="control-label col-sm-2">Teléfono:</label>
+                <div class="col-sm-4">
+                    <input type="text" name="telefono" id="telefono" class="form-control" placeholder="Ej. 322445556">
+                </div>
+                
+            </div>
+
+            <div class="form-group" >
+                <!-- CURSOS FIELD -->
+                <label for="cursos" class="control-label col-sm-2">Cursos disponibles:</label>
+                <div class="col-sm-4" >
+                    <select class="form-control" name="cursos" id="cursos">
+                        {{{listarEnSelect}}}
+                    </select>
+                </div>
+            </div>
+            <!-- FORM BUTTON -->
+            <div class="button-nav text-center">
+                <button type="submit" class="btn btn-md btn-primary">Enviar</button>
+            </div>
+        </fieldset>
+    </form>
+{{>footer}}
