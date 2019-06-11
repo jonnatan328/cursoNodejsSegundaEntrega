@@ -4,6 +4,7 @@ const path = require('path');
 const hbs = require('hbs');
 const bodyParser = require('body-parser');
 const funcionesCurso = require('./funcionesCurso');
+const funcionesAspirante = require('./funcionesAspirante');
 require('./helpers');
 
 const directorioPublico = path.join(__dirname,'../public');
@@ -60,6 +61,30 @@ app.post('/guardarCurso', (req, res) => {
     res.render('cursos/listarCursos', {
         titulo: 'Segunda entrega'
     });
+
+})
+
+app.post('/guardarInscripcion', (req, res) => {
+    console.log('body', req.body);
+    
+    let aspirante = {
+        documento: req.body.aspiranteId,
+        correoElectronico: req.body.correoElectronico,
+        nombre: req.body.name,
+        telefono: req.body.telefono,
+        curso: req.body.curso
+    }
+
+    let inscrito = funcionesAspirante.crear(aspirante);
+    if (inscrito) {
+        res.render('aspirantes/exitoInscripcion', {
+            titulo: 'Segunda entrega'
+        });
+    } else {
+        res.render('aspirantes/errorInscripcion', {
+            titulo: 'Segunda entrega'
+        });
+    }
 
 })
 

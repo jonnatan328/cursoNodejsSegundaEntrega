@@ -4,34 +4,38 @@ var listaAspirantes = [];
 
 const crear = (aspirante) => {
     listar();
-    let est = {
-        nombre: aspirante.nombre,
-        matematicas: aspirante.matematicas,
-        ingles: aspirante.ingles,
-        programacion: aspirante.programacion
-    };
-    let duplicado = listaAspirantes.find(nomb => nomb.nombre == aspirante.nombre);
-    if (!duplicado) {
-        listaAspirantes.push(est);
+    let aspiranteAux = listaAspirantes.filter(doc => doc.documento == aspirante.documento);
+    if (aspirante.length == 0) {
+        listaAspirantes.push(aspirante);
         console.log(listaAspirantes);
-        guardar();
+        guardarAspirante();
+        return true;
     } else {
-        console.log('Ya existe otro aspirante con el mismo nombre');
+        let inscrito = aspiranteAux.find(asp => asp.curso == aspirante.curso);
+        if (!inscrito) {
+            listaAspirantes.push(aspirante);
+            console.log(listaAspirantes);
+            guardarAspirante();
+            return true;
+        }else{
+            return false;
+            console.log('Ya existe una inscripción al curso');
+        }
     }
 }
 
 const listar = () => {
     try {
-        listaAspirantes = require('./listado.json');
+        listaAspirantes = require('../listadoAspirante.json');
         // listaAspirantes = JSON.parse(fs.readFileSync('listado.json')) //si necesitamos obtenerlos de forma asincronica
     } catch (error) {
         listaAspirantes = [];
     }
 }
 
-const guardar = () => {
+const guardarAspirante = () => {
     let datos = JSON.stringify(listaAspirantes);
-    fs.writeFile('listado.json', datos, (err) => {
+    fs.writeFile('listadoAspirante.json', datos, (err) => {
         if (err) {
             throw (err);
         }
@@ -50,36 +54,6 @@ const mostrar = () => {
         console.log('ingles' + aspirante.ingles);
         console.log('programación' + aspirante.programacion + '\n');
     });
-}
-
-const mostrarest = (nom) => {
-    listar()
-    let est = listaAspirantes.find(buscar => buscar.nombre == nom);
-    if (!est) {
-        console.log('No existe este aspirante');
-        
-    } else {
-        console.log(est.nombre);
-        console.log('notas: ');
-        console.log('matematicas' + est.matematicas);
-        console.log('ingles' + est.ingles);
-        console.log('programación' + est.programacion + '\n');
-        
-    }
-}
-
-const mostrarmat = () => {
-    listar()
-    let ganan = listaAspirantes.filter(mat => mat.matematicas >= 3);
-    if (ganan.length == 0) {
-        console.log('Ningún aspirante a ganado');
-    }else {
-        ganan.forEach(aspirante => {
-            console.log(aspirante.nombre);
-            console.log('notas: ');
-            console.log('matematicas' + aspirante.matematicas);
-        });
-    }
 }
 
 const actualizar = (nom, asignatura, calificacion) => {
@@ -107,8 +81,6 @@ const eliminar = (nom) => {
 module.exports = {
     crear,
     mostrar,
-    mostrarest,
-    mostrarmat,
     actualizar,
     eliminar
 }

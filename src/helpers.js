@@ -87,7 +87,7 @@ hbs.registerHelper('listarEnSelect', () => {
 
     let texto = '';
     cursosDisponibles.forEach(curso => {
-        texto += '<option>' + curso.nombre + '</option>'
+        texto += '<option value="' + curso.id + '">' + curso.nombre + '</option>'
     });
 
     return texto;
