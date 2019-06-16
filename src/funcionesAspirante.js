@@ -32,7 +32,7 @@ const listar = () => {
     }
 }
 
-const guardarAspirante = (resolve) => {
+const guardarAspirante = () => {
     let datos = JSON.stringify(listaAspirantes);
     fs.writeFile('listadoAspirante.json', datos, (err) => {
         if (err) {
