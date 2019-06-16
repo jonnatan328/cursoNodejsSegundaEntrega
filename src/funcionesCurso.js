@@ -57,32 +57,21 @@ const getById = (cursoId) => {
     }
 }
 
-const actualizar = (nom, asignatura, calificacion) => {
+const actualizar = (id) => {
     listar();
-    let encontrado = listaCursos.find(buscar => buscar.nombre == nom);
+    let encontrado = listaCursos.find(buscar => buscar.id == id);
     if (!encontrado) {
         console.log('No existe este curso');
     } else {
-        encontrado[asignatura] = calificacion;
+        encontrado.estado = 'cerrado';
         guardar()        
     }
 }
 
-const eliminar = (nom) => {
-    listar();
-    let nuevo = listaCursos.filter(mat => mat.nombre != nom);
-    if (nuevo.length == listaCursos.length) {
-        console.log('Ningún Curso tiene el nombre');
-    }else {
-        listaCursos = nuevo;
-        guardar()
-    }
-}
 
 module.exports = {
     crear,
     mostrar,
     getById,
-    actualizar,
-    eliminar
+    actualizar
 }

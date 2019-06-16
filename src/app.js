@@ -28,9 +28,11 @@ app.get('/listar-cursos', (req, res) => {
 })
 
 app.get('/inscribir', (req, res) => {
-    res.render('aspirantes/crearAspirante', {
-        titulo: 'Segunda entrega'
-    });
+    res.render('aspirantes/crearAspirante');
+})
+
+app.get('/ver-inscritos', (req, res) => {
+    res.render('aspirantes/mostrarInscritos');
 })
 
 app.post('/guardarCurso', (req, res) => {
@@ -77,6 +79,13 @@ app.post('/guardarInscripcion', (req, res) => {
     } else {
         res.render('aspirantes/errorInscripcion');
     }
+
+})
+app.post('/actualizarEstado', (req, res) => {
+    console.log('body', req.body);
+
+    funcionesCurso.actualizar(req.body.cursoId);
+    res.render('cursos/listarCursos');
 
 })
 
