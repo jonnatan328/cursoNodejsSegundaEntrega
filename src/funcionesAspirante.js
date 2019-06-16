@@ -27,18 +27,19 @@ const crear = (aspirante) => {
 const listar = () => {
     try {
         listaAspirantes = require('../listadoAspirante.json');
-        // listaAspirantes = JSON.parse(fs.readFileSync('listado.json')) //si necesitamos obtenerlos de forma asincronica
     } catch (error) {
         listaAspirantes = [];
     }
 }
 
-const guardarAspirante = () => {
+const guardarAspirante = (resolve) => {
     let datos = JSON.stringify(listaAspirantes);
     fs.writeFile('listadoAspirante.json', datos, (err) => {
         if (err) {
             throw (err);
         }
+        // Se elimina los aspirantes de la cache para que recarge los aspirantes
+        delete require.cache[require.resolve('../listadoAspirante.json')];
         console.log('Archivo creado con éxito');
     })
 }
@@ -67,14 +68,16 @@ const actualizar = (nom, asignatura, calificacion) => {
     }
 }
 
-const eliminar = (nom) => {
+const eliminar = (id) => {
     listar();
-    let nuevo = listaAspirantes.filter(mat => mat.nombre != nom);
+    let nuevo = listaAspirantes.filter(mat => mat.documento != id);
     if (nuevo.length == listaAspirantes.length) {
-        console.log('Ningún aspirante tiene el nombre');
+        console.log('Ningún aspirante tiene el documento');
+        rejected(id);
     }else {
+        console.log('Se elimino el aspirante', id);
         listaAspirantes = nuevo;
-        guardar()
+        guardarAspirante();
     }
 }
 

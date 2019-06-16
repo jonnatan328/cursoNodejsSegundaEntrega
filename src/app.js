@@ -89,6 +89,13 @@ app.post('/actualizarEstado', (req, res) => {
 
 })
 
+app.post('/eliminar-aspirante', (req, res) => {
+    funcionesAspirante.eliminar(req.body.id);
+    setTimeout(function() {
+        res.render('aspirantes/mostrarInscritos')
+    }, 3000);
+})
+
 app.listen(3000, () => {
     console.log('Escuchando en el puerto 3000');
 })

@@ -84,7 +84,6 @@ hbs.registerHelper('listarInscritosPorCurso', () => {
     try {
         listaCursos = require('../listadoCursos.json');
         listaAspirantes = require('../listadoAspirante.json');
-        // listaCursos = JSON.parse(fs.readFileSync('listado.json')) //si necesitamos obtenerlos de forma asincronica
     } catch (error) {
         listaCursos = [];
     }
@@ -120,7 +119,7 @@ hbs.registerHelper('listarInscritosPorCurso', () => {
                                 '<td>' + aspirante.nombre + '</td>' +
                                 '<td>' + aspirante.correoElectronico + '</td>' +
                                 '<td>' + aspirante.telefono + '</td>' +
-                                '<td>' + aspirante.telefono + '</td></tr>';
+                                '<td>' + crearBotonEliminar(aspirante.documento) + '</td></tr>';
                         });
                         texto = texto + '</tbody></table>' +
                         '</div>' + 
@@ -149,3 +148,14 @@ hbs.registerHelper('listarEnSelect', () => {
 
     return texto;
 })
+
+const crearBotonEliminar = (id) => {
+    return '<form action="/eliminar-aspirante" method="POST" class="form-horizontal">' +
+                '<fieldset>' +
+                    '<input type="hidden" name="id" value=' + id + '>' + 
+                    '<div class="button-nav text-center">' +
+                        '<button type="submit" class="btn btn-md btn-primary">Eliminar</button>' +
+                    '</div>' +
+                '</fieldset>' +
+            '</form>';
+}
