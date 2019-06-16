@@ -4,13 +4,6 @@ var listaCursos = [];
 
 const crear = (curso) => {
     listar();
-    // let curso = {
-    //     id: curs.id,
-    //     nombre: curs.nombre,
-    //     descripcion: curs.descripcion,
-    //     valor: curs.valor,
-    //     programacion: curs.programacion
-    // };
     let duplicado = listaCursos.find(cur => cur.id == curso.id);
     if (!duplicado) {
         listaCursos.push(curso);
@@ -53,33 +46,14 @@ const mostrar = () => {
     });
 }
 
-const mostrarest = (nom) => {
+const getById = (cursoId) => {
     listar()
-    let est = listaCursos.find(buscar => buscar.nombre == nom);
-    if (!est) {
+    let curs = listaCursos.find(buscar => buscar.id == cursoId);
+    if (!curs) {
         console.log('No existe este curso');
         
     } else {
-        console.log(est.nombre);
-        console.log('notas: ');
-        console.log('matematicas' + est.matematicas);
-        console.log('ingles' + est.ingles);
-        console.log('programación' + est.programacion + '\n');
-        
-    }
-}
-
-const mostrarmat = () => {
-    listar()
-    let ganan = listaCursos.filter(mat => mat.matematicas >= 3);
-    if (ganan.length == 0) {
-        console.log('Ningún curso a ganado');
-    }else {
-        ganan.forEach(curso => {
-            console.log(curso.nombre);
-            console.log('notas: ');
-            console.log('matematicas' + curso.matematicas);
-        });
+        return curs;
     }
 }
 
@@ -108,8 +82,7 @@ const eliminar = (nom) => {
 module.exports = {
     crear,
     mostrar,
-    mostrarest,
-    mostrarmat,
+    getById,
     actualizar,
     eliminar
 }

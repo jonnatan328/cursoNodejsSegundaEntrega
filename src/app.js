@@ -16,21 +16,15 @@ app.use(bodyParser.urlencoded({extended:false}))
 app.set('view engine', 'hbs');
 
 app.get('/', (req, res) => {
-    res.render('inicio', {
-        titulo: 'Segunda entrega'
-    });
+    res.render('inicio');
 })
 
 app.get('/crear-curso', (req, res) => {
-    res.render('cursos/crearCurso', {
-        titulo: 'Segunda entrega'
-    });
+    res.render('cursos/crearCurso');
 })
 
 app.get('/listar-cursos', (req, res) => {
-    res.render('cursos/listarCursos', {
-        titulo: 'Segunda entrega'
-    });
+    res.render('cursos/listarCursos');
 })
 
 app.get('/inscribir', (req, res) => {
@@ -58,9 +52,7 @@ app.post('/guardarCurso', (req, res) => {
     }
 
     funcionesCurso.crear(curso);
-    res.render('cursos/listarCursos', {
-        titulo: 'Segunda entrega'
-    });
+    res.render('cursos/listarCursos');
 
 })
 
@@ -77,13 +69,13 @@ app.post('/guardarInscripcion', (req, res) => {
 
     let inscrito = funcionesAspirante.crear(aspirante);
     if (inscrito) {
+        let curso = funcionesCurso.getById(req.body.curso);
         res.render('aspirantes/exitoInscripcion', {
-            titulo: 'Segunda entrega'
+            estudiante: req.body.name,
+            nombreCurso: curso.nombre
         });
     } else {
-        res.render('aspirantes/errorInscripcion', {
-            titulo: 'Segunda entrega'
-        });
+        res.render('aspirantes/errorInscripcion');
     }
 
 })
